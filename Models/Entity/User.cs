@@ -1,4 +1,6 @@
-﻿namespace Wedding_Planner.Models.Entity
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Wedding_Planner.Models.Entity
 {
     public class User
     {

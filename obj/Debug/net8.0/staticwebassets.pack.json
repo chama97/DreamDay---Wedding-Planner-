@@ -13,6 +13,46 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Esoft\\SE\\AD\\Wedding-Planner\\wwwroot\\img\\Web-Logo-White-background-02.png",
+      "PackagePath": "staticwebassets\\img\\Web-Logo-White-background-02.png"
+    },
+    {
+      "Id": "D:\\Esoft\\SE\\AD\\Wedding-Planner\\wwwroot\\img\\detination-wed.jpg",
+      "PackagePath": "staticwebassets\\img\\detination-wed.jpg"
+    },
+    {
+      "Id": "D:\\Esoft\\SE\\AD\\Wedding-Planner\\wwwroot\\img\\elegant-wedding.jpg",
+      "PackagePath": "staticwebassets\\img\\elegant-wedding.jpg"
+    },
+    {
+      "Id": "D:\\Esoft\\SE\\AD\\Wedding-Planner\\wwwroot\\img\\footer-logo-BW.png",
+      "PackagePath": "staticwebassets\\img\\footer-logo-BW.png"
+    },
+    {
+      "Id": "D:\\Esoft\\SE\\AD\\Wedding-Planner\\wwwroot\\img\\login.jpg",
+      "PackagePath": "staticwebassets\\img\\login.jpg"
+    },
+    {
+      "Id": "D:\\Esoft\\SE\\AD\\Wedding-Planner\\wwwroot\\img\\login1.jpg",
+      "PackagePath": "staticwebassets\\img\\login1.jpg"
+    },
+    {
+      "Id": "D:\\Esoft\\SE\\AD\\Wedding-Planner\\wwwroot\\img\\vender-wed.jpg",
+      "PackagePath": "staticwebassets\\img\\vender-wed.jpg"
+    },
+    {
+      "Id": "D:\\Esoft\\SE\\AD\\Wedding-Planner\\wwwroot\\img\\venue-wed.jpg",
+      "PackagePath": "staticwebassets\\img\\venue-wed.jpg"
+    },
+    {
+      "Id": "D:\\Esoft\\SE\\AD\\Wedding-Planner\\wwwroot\\img\\wed-plan.jpg",
+      "PackagePath": "staticwebassets\\img\\wed-plan.jpg"
+    },
+    {
+      "Id": "D:\\Esoft\\SE\\AD\\Wedding-Planner\\wwwroot\\img\\wedding-bg.jpg",
+      "PackagePath": "staticwebassets\\img\\wedding-bg.jpg"
+    },
+    {
       "Id": "D:\\Esoft\\SE\\AD\\Wedding-Planner\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
