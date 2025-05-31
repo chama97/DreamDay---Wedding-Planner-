@@ -15,6 +15,8 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IGuestService, GuestService>();
+builder.Services.AddScoped<ITimelineService, TimelineService>();
 
 // Enable session management
 builder.Services.AddDistributedMemoryCache();

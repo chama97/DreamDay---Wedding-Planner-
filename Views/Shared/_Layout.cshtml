@@ -53,13 +53,16 @@
                         {
                             <!-- Admin Navbar -->
                             <li class="nav-item me-4">
-                                <a class="nav-link text-dark" asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
                             </li>
                             <li class="nav-item me-4">
-                                <a class="nav-link text-dark" asp-controller="Admin" asp-action="ManageUsers">Manage Users</a>
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Users">Manage Users</a>
+                            </li
+                             <li class="nav-item me-4">
+                                <a class="nav-link text-dark" asp-controller="Vender" asp-action="ManageVenders">Manage Venders</a>
                             </li>
                             <li class="nav-item me-4">
-                                <a class="nav-link text-dark" asp-controller="Admin" asp-action="ManageWeddings">Manage Weddings</a>
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Reports">Reports</a>
                             </li>
                             <li class="nav-item me-4">
                                 <a class="nav-link text-danger" asp-controller="Account" asp-action="Logout">Logout</a>
@@ -69,13 +72,16 @@
                         {
                             <!-- Couple Navbar -->
                             <li class="nav-item me-4">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="CoupleDashboard">My Dashboard</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="CoupleDashboard">Dashboard</a>
                             </li>
                             <li class="nav-item me-4">
-                                <a class="nav-link text-dark" asp-controller="Wedding" asp-action="Details">My Wedding</a>
+                                <a class="nav-link text-dark" asp-controller="Timeline" asp-action="Timeline">Timeline</a>
                             </li>
+                          <li class="nav-item me-4">
+                               <a class="nav-link text-dark" asp-controller="Guest" asp-action="GuestManagement">Guest</a>
+                          </li>
                             <li class="nav-item me-4">
-                                <a class="nav-link text-dark" asp-controller="Checklist" asp-action="Index">Checklist</a>
+                                <a class="nav-link text-dark" asp-controller="Vender" asp-action="Vender">Venders</a>
                             </li>
                             <li class="nav-item me-4">
                                 <a class="nav-link text-danger" asp-controller="Account" asp-action="Logout">Logout</a>
@@ -85,13 +91,13 @@
                         {
                             <!-- Planner Navbar -->
                             <li class="nav-item me-4">
-                                <a class="nav-link text-dark" asp-controller="Planner" asp-action="Dashboard">Planner Dashboard</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="PlannerDashboard">Dashboard</a>
                             </li>
                             <li class="nav-item me-4">
                                 <a class="nav-link text-dark" asp-controller="Planner" asp-action="ManageClients">My Clients</a>
-                            </li>
+                            </li
                             <li class="nav-item me-4">
-                                <a class="nav-link text-dark" asp-controller="Planner" asp-action="Schedule">Schedule</a>
+                                <a class="nav-link text-dark" asp-controller="Vender" asp-action="Vender">Venders</a>
                             </li>
                             <li class="nav-item me-4">
                                 <a class="nav-link text-danger" asp-controller="Account" asp-action="Logout">Logout</a>

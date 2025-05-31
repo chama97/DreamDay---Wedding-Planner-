@@ -74,6 +74,26 @@
     <div class="register-form-section">
         <div class="form-card">
             <h2>Register as a Planner</h2>
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" id="errorAlert">
+                    <ul class="mb-0">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <script>
+                    setTimeout(function () {
+                        var alert = bootstrap.Alert.getOrCreateInstance(document.getElementById('errorAlert'));
+                        alert.close();
+                    }, 5000); // Auto-dismiss after 5 seconds
+                </script>
+            }
+
             <form asp-action="RegisterPlanner" method="post">
                 <div class="form-row">
                     <div class="mb-3 form-col">

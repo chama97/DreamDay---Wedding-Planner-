@@ -15,6 +15,10 @@ namespace Wedding_Planner.Services
 
         Task<bool> DeleteUserAsync(int id);
 
-        Task<bool> ChangePasswordAsync(string userId, string currentPassword, string newPassword);
+        //Task<bool> ChangePasswordAsync(string userId, string currentPassword, string newPassword);
+
+        Task<User?> GetUserByEmailAsync(string email);
+
+        Task<bool> ResetPasswordAsync(ResetPasswordViewModel model);
     }
 }

@@ -46,7 +46,6 @@ namespace Wedding_Planner.Controllers
             return RedirectToAction("Login");
         }
 
-        // POST: Register Method
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterCouple(CoupleRegisterModel newCouple)
@@ -66,10 +65,11 @@ namespace Wedding_Planner.Controllers
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = $"An error occurred while registering couple request. Please try again later: {ex.Message}";
-                return View("Error");
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(newCouple);
             }
         }
+
 
 
         // POST: Register Method
@@ -92,8 +92,8 @@ namespace Wedding_Planner.Controllers
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = $"An error occurred while creating planner account. Please try again later: {ex.Message}";
-                return View("Error");
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(newPlanner);
             }
         }
 
@@ -112,14 +112,26 @@ namespace Wedding_Planner.Controllers
                     var role = await _context.Roles.FirstOrDefaultAsync(r => r.Id == user.RoleId);
                     string roleName = role?.Name ?? "Unknown";
 
-                    // Store session data
+                    // Store basic session data
                     HttpContext.Session.SetString("Username", user.Username);
                     HttpContext.Session.SetString("UserID", user.Id.ToString());
                     HttpContext.Session.SetString("Role", roleName);
-                    Console.WriteLine(user.Username);
-                    Console.WriteLine(user.Id.ToString());
-                    Console.WriteLine(roleName);
 
+                    // If the role is Couple, store WeddingId
+                    if (roleName == "Couple")
+                    {
+                        var couple = await _context.Couples.FirstOrDefaultAsync(c => c.UserId == user.Id);
+                        if (couple != null)
+                        {
+                            var wedding = await _context.Weddings.FirstOrDefaultAsync(w => w.CoupleId == couple.Id);
+                            if (wedding != null)
+                            {
+                                HttpContext.Session.SetInt32("WeddingId", wedding.Id);
+                            }
+                        }
+                    }
+
+                    // Redirect based on role
                     return roleName switch
                     {
                         "Admin" => RedirectToAction("AdminDashboard", "Home"),
@@ -128,6 +140,7 @@ namespace Wedding_Planner.Controllers
                         _ => RedirectToAction("Index", "Home")
                     };
                 }
+
                 ViewBag.Error = errorMessage;
                 return View();
             }
@@ -137,6 +150,7 @@ namespace Wedding_Planner.Controllers
                 return View("Error");
             }
         }
+
 
 
         [HttpGet]
@@ -181,35 +195,85 @@ namespace Wedding_Planner.Controllers
         }
 
 
-        // POST : Change Password Method
+        //// POST : Change Password Method
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
+        //{
+        //    try
+        //    {
+        //        var userId = HttpContext.Session.GetString("UserID");
+        //        if (userId == null)
+        //        {
+        //            return RedirectToAction("Login", "Account");
+        //        }
+        //        var success = await _userService.ChangePasswordAsync(userId, currentPassword, newPassword);
+        //        if (!success)
+        //        {
+        //            TempData["ErrorMessage"] = "Current password is incorrect.";
+        //            return RedirectToAction("Setting");
+        //        }
+        //        TempData["SuccessMessage"] = "Password updated successfully!";
+        //        return RedirectToAction("Setting");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TempData["ErrorMessage"] = $"An error occurred while changing the user password. Please try again later: {ex.Message}";
+        //        return View("Error");
+        //    }
+        //}
+
+        [HttpGet]
+        public IActionResult VerifyEmail()
+        {
+            return View();
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
+        public async Task<IActionResult> VerifyEmail(VerifyEmailViewModel model)
         {
-            try
-            {
-                var userId = HttpContext.Session.GetString("UserID");
-                if (userId == null)
-                {
-                    return RedirectToAction("Login", "Account");
-                }
+            if (!ModelState.IsValid)
+                return View(model);
 
-                var success = await _userService.ChangePasswordAsync(userId, currentPassword, newPassword);
-                if (!success)
-                {
-                    TempData["ErrorMessage"] = "Current password is incorrect.";
-                    return RedirectToAction("Setting");
-                }
-
-                TempData["SuccessMessage"] = "Password updated successfully!";
-                return RedirectToAction("Setting");
-            }
-            catch (Exception ex)
+            var user = await _userService.GetUserByEmailAsync(model.Email);
+            if (user == null)
             {
-                TempData["ErrorMessage"] = $"An error occurred while changing the user password. Please try again later: {ex.Message}";
-                return View("Error");
+                TempData["ErrorMessage"] = "Email not found. Please try again.";
+                return RedirectToAction("VerifyEmail");
             }
+
+            return RedirectToAction("ResetPassword", new { id = user.Id });
         }
+
+        [HttpGet]
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result = await _userService.ResetPasswordAsync(model);
+            if (result)
+            {
+                TempData["SuccessMessage"] = "Password reset successfully.";
+                return RedirectToAction("Login");
+            }
+
+            ModelState.AddModelError("", "Failed to reset password.");
+            return View(model);
+        }
+
 
 
     }

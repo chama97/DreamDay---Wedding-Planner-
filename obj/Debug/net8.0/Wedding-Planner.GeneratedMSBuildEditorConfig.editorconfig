@@ -38,6 +38,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3RlclBsYW5uZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Esoft/SE/AD/Wedding-Planner/Views/Account/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZXNldFBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Esoft/SE/AD/Wedding-Planner/Views/Account/VerifyEmail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxWZXJpZnlFbWFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Esoft/SE/AD/Wedding-Planner/Views/Guest/GuestManagement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3Vlc3RcR3Vlc3RNYW5hZ2VtZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Esoft/SE/AD/Wedding-Planner/Views/Guest/UpdateGuest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3Vlc3RcVXBkYXRlR3Vlc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Esoft/SE/AD/Wedding-Planner/Views/Home/AdminDashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBZG1pbkRhc2hib2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -64,6 +80,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Esoft/SE/AD/Wedding-Planner/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Esoft/SE/AD/Wedding-Planner/Views/Timeline/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZWxpbmVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Esoft/SE/AD/Wedding-Planner/Views/Timeline/Timeline.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZWxpbmVcVGltZWxpbmUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Esoft/SE/AD/Wedding-Planner/Views/_ViewImports.cshtml]
