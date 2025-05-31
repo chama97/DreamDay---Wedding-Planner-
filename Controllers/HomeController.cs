@@ -1,30 +1,30 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Wedding_Planner.Models;
 
 namespace Wedding_Planner.Controllers
 {
-	public class HomeController : Controller
-	{
-		private readonly ILogger<HomeController> _logger;
+    public class HomeController : Controller
+    {
+        private readonly ILogger<HomeController> _logger;
 
-		public HomeController(ILogger<HomeController> logger)
-		{
-			_logger = logger;
-		}
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
 
-		public IActionResult Index()
-		{
-			return View();
-		}
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-		[Authorize]
-		public IActionResult Privacy()
-		{
-			return View();
-		}
-
+        [Authorize]
+        public IActionResult Privacy()
+        {
+            return View();
+        }
 
         [HttpGet]
         public IActionResult PlannerDashboard()
@@ -51,10 +51,80 @@ namespace Wedding_Planner.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult AdminDashboard()
+        {
+            // Dummy stats
+            ViewBag.TotalUsers = 25;
+            ViewBag.ActiveWeddings = 6;
+            ViewBag.TotalVendors = 12;
+            ViewBag.TotalPlanners = 4;
+
+            // Dummy recent users
+            ViewBag.RecentUsers = new List<dynamic>
+    {
+        new { Username = "chamath123", Role = "Planner", Email = "chamath@example.com" },
+        new { Username = "nilu456", Role = "Couple", Email = "nilu@example.com" },
+        new { Username = "admin007", Role = "Admin", Email = "admin@example.com" },
+        new { Username = "planny98", Role = "Planner", Email = "plan@example.com" },
+        new { Username = "sandy21", Role = "Couple", Email = "sandy@example.com" }
+    };
+
+            // Dummy recent weddings
+            ViewBag.RecentWeddings = new List<dynamic>
+    {
+        new { CoupleName = "Chamath & Nilu", Date = DateTime.Now.AddDays(10), Venue = "Colombo" },
+        new { CoupleName = "Sahan & Dilmi", Date = DateTime.Now.AddDays(20), Venue = "Kandy" },
+        new { CoupleName = "Kasun & Anu", Date = DateTime.Now.AddDays(5), Venue = "Galle" },
+        new { CoupleName = "Ruwan & Samanthi", Date = DateTime.Now.AddDays(30), Venue = "Negombo" },
+        new { CoupleName = "Nadeesha & Thisara", Date = DateTime.Now.AddDays(15), Venue = "Matara" }
+    };
+
+            return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult CoupleDashboard()
+        {
+            // Basic info
+            ViewBag.CoupleName = "Chamath & Nilu";
+            ViewBag.WeddingDate = DateTime.Now.AddDays(30); // Wedding in 30 days
+            ViewBag.Venue = "Kingsbury Hotel, Colombo";
+            ViewBag.Theme = "Rustic Garden";
+            ViewBag.WeddingPlanner = "Elegant Events (Planner123)";
+
+            // Dashboard Metrics
+            ViewBag.DaysUntilWedding = (ViewBag.WeddingDate - DateTime.Now).Days;
+            ViewBag.BudgetUsed = 65; // 65%
+            ViewBag.GuestCount = 150;
+            ViewBag.TasksCompleted = 70; // 70%
+            ViewBag.VendorProgress = 80; // 80%
+
+            // Upcoming Tasks
+            ViewBag.UpcomingTasks = new List<dynamic>
+    {
+        new { Name = "Finalize guest list", DueDate = DateTime.Now.AddDays(3), Status = "Pending" },
+        new { Name = "Book photographer", DueDate = DateTime.Now.AddDays(5), Status = "Completed" },
+        new { Name = "Venue decoration plan", DueDate = DateTime.Now.AddDays(7), Status = "Pending" }
+    };
+
+            // Vendors
+            ViewBag.Vendors = new List<dynamic>
+    {
+        new { Name = "Lush Decor", Service = "Decoration", Status = "Confirmed", HasContract = true },
+        new { Name = "Shutter Studio", Service = "Photography", Status = "Pending", HasContract = false },
+        new { Name = "Sweet Treats", Service = "Catering", Status = "Confirmed", HasContract = true }
+    };
+
+            return View();
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-		}
-	}
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+    }
 }

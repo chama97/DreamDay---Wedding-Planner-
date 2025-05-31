@@ -11,43 +11,96 @@
     @RenderSection("Styles", required: false)
 </head>
 <body>
+    @using Microsoft.AspNetCore.Http
+    @{
+        var role = Context.Session.GetString("Role");
+    }
+
     <header>
         <nav class="navbar navbar-expand-lg bg-white shadow-sm" style="min-height: 75px;">
             <div class="container-fluid">
-                <!-- Logo Image -->
                 <a class="navbar-brand d-flex align-items-center" href="/">
                     <img src="~/img/Web-Logo-White-background-02.png" alt="DreamDay Logo" height="45" class="me-2 ms-4" />
                 </a>
 
-                <!-- Toggler for mobile -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <!-- Navigation links -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item me-4">
-                            <a class="nav-link text-dark" asp-controller="/" asp-action="">Home</a>
-                        </li>
-                        <li class="nav-item me-4">
-                            <a class="nav-link text-dark" asp-controller="/" asp-action="">Service</a>
-                        </li>
-                        <li class="nav-item me-4">
-                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item dropdown me-4">
-                            <a class="nav-link dropdown-toggle text-dark" role="button" data-bs-toggle="dropdown">Register</a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" asp-controller="Account" asp-action="RegisterCouple">As Couple</a></li>
-                                <li><a class="dropdown-item" asp-controller="Account" asp-action="RegisterPlanner">As Planner</a></li>
-                            </ul>
-                        </li>
+                        @if (string.IsNullOrEmpty(role))
+                        {
+                            <!-- Guest Navbar -->
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-dark" asp-controller="/" asp-action="">Home</a>
+                            </li>
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-dark" asp-controller="/" asp-action="">Service</a>
+                            </li>
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item dropdown me-4">
+                                <a class="nav-link dropdown-toggle text-dark" role="button" data-bs-toggle="dropdown">Register</a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="RegisterCouple">As Couple</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="RegisterPlanner">As Planner</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else if (role == "Admin")
+                        {
+                            <!-- Admin Navbar -->
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-dark" asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
+                            </li>
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-dark" asp-controller="Admin" asp-action="ManageUsers">Manage Users</a>
+                            </li>
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-dark" asp-controller="Admin" asp-action="ManageWeddings">Manage Weddings</a>
+                            </li>
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-danger" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else if (role == "Couple")
+                        {
+                            <!-- Couple Navbar -->
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="CoupleDashboard">My Dashboard</a>
+                            </li>
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-dark" asp-controller="Wedding" asp-action="Details">My Wedding</a>
+                            </li>
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-dark" asp-controller="Checklist" asp-action="Index">Checklist</a>
+                            </li>
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-danger" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else if (role == "Planner")
+                        {
+                            <!-- Planner Navbar -->
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-dark" asp-controller="Planner" asp-action="Dashboard">Planner Dashboard</a>
+                            </li>
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-dark" asp-controller="Planner" asp-action="ManageClients">My Clients</a>
+                            </li>
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-dark" asp-controller="Planner" asp-action="Schedule">Schedule</a>
+                            </li>
+                            <li class="nav-item me-4">
+                                <a class="nav-link text-danger" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
-
     </header>
     @RenderSection("FullWidthContent", required: false)
 
