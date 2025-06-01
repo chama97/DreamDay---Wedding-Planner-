@@ -15,7 +15,20 @@ namespace Wedding_Planner.Controllers
             _context = context;
         }
 
-        // View all vendors
+        // View all vendors for couple
+        public IActionResult Get()
+        {
+            // Check if user is logged in and is a couple
+            var role = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(role) || role != "Couple")
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View("ManageVendors");
+        }
+
+        // View all vendors for admin
         public async Task<IActionResult> ManageVenders()
         {
             var vendors = await _context.Vendors

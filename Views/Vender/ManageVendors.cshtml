@@ -1,0 +1,227 @@
+@{
+    ViewData["Title"] = "Manage Vendors";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Manage Vendors</h2>
+
+    <!-- Vendor Categories -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Vendor Categories</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-3 mb-3">
+                            <div class="card h-100 shadow-sm clickable" data-bs-toggle="modal" data-bs-target="#venuesModal">
+                                <div class="card-body">
+                                    <i class="fas fa-hotel fa-2x text-primary mb-2"></i>
+                                    <h6>Venues</h6>
+                                    <small class="text-muted">Hotels & Halls</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card h-100 shadow-sm clickable" data-bs-toggle="modal" data-bs-target="#photographersModal">
+                                <div class="card-body">
+                                    <i class="fas fa-camera fa-2x text-primary mb-2"></i>
+                                    <h6>Photographers</h6>
+                                    <small class="text-muted">Photo & Video</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card h-100 shadow-sm clickable" data-bs-toggle="modal" data-bs-target="#floristsModal">
+                                <div class="card-body">
+                                    <i class="fas fa-spa fa-2x text-primary mb-2"></i>
+                                    <h6>Florists</h6>
+                                    <small class="text-muted">Decorations</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card h-100 shadow-sm clickable" data-bs-toggle="modal" data-bs-target="#cateringModal">
+                                <div class="card-body">
+                                    <i class="fas fa-utensils fa-2x text-primary mb-2"></i>
+                                    <h6>Catering</h6>
+                                    <small class="text-muted">Food & Beverages</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vendor Suggestions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+                    <h5 class="mb-0">Vendor Suggestions</h5>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-light btn-sm">All</button>
+                        <button type="button" class="btn btn-light btn-sm">Selected</button>
+                        <button type="button" class="btn btn-light btn-sm">Pending</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle" id="vendorTable">
+                            <thead>
+                                <tr>
+                                    <th>Vendor Name</th>
+                                    <th>Category</th>
+                                    <th>Rating</th>
+                                    <th>Price Range</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var vendors = new[]
+                                    {
+                                new { Name = "Grand Hotel", Category = "Venue", Rating = 4.5, Price = "$5000 - $10000", Status = "Selected" },
+                                new { Name = "Capture Moments", Category = "Photography", Rating = 4.0, Price = "$2000 - $4000", Status = "Pending" },
+                                new { Name = "Floral Dreams", Category = "Florist", Rating = 5.0, Price = "$1000 - $3000", Status = "Not Selected" },
+                                new { Name = "Gourmet Chefz", Category = "Catering", Rating = 3.5, Price = "$3000 - $6000", Status = "Pending" }
+                                };
+
+                                    foreach (var vendor in vendors)
+                                    {
+                                        <tr>
+                                            <td>@vendor.Name</td>
+                                            <td>@vendor.Category</td>
+                                            <td>
+                                                @{
+                                                    var fullStars = (int)vendor.Rating;
+                                                    var halfStar = vendor.Rating % 1 >= 0.5;
+                                                    for (int i = 0; i < fullStars; i++)
+                                                    {
+                                                        <i class="fas fa-star text-warning"></i>
+                                                        ;
+                                                    }
+                                                    if (halfStar)
+                                                    {
+                                                        <i class="fas fa-star-half-alt text-warning"></i>
+                                                        ;
+                                                    }
+                                                    for (int i = fullStars + (halfStar ? 1 : 0); i < 5; i++)
+                                                    {
+                                                        <i class="far fa-star text-warning"></i>
+                                                        ;
+                                                    }
+                                                }
+                                            </td>
+                                            <td>@vendor.Price</td>
+                                            <td>
+                                                <span class="badge bg-@(vendor.Status == "Selected" ? "success" : vendor.Status == "Pending" ? "warning" : "secondary") status-label">@vendor.Status</span>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewModal" onclick="loadVendorDetails('@vendor.Name')">View</button>
+                                                <button class="btn btn-sm btn-success" onclick="selectVendor(this)">Select</button>
+                                                <button class="btn btn-sm btn-danger" onclick="deleteRow(this)">Delete</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View Modal -->
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content shadow">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="viewModalLabel">Vendor Details</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="vendorDetails">
+                <!-- Vendor content loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Category Modals -->
+@foreach (var cat in new[] { "venues", "photographers", "florists", "catering" })
+{
+    <div class="modal fade" id="@cat@("Modal")" tabindex="-1" aria-labelledby="@cat@("ModalLabel")" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content shadow">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">@cat.ToUpper()</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Dummy @cat data</strong></p>
+                    <ul>
+                        <li>Vendor 1 - Sample Description</li>
+                        <li>Vendor 2 - Sample Description</li>
+                        <li>Vendor 3 - Sample Description</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <style>
+        .clickable {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+            .clickable:hover {
+                transform: scale(1.03);
+            }
+
+        .badge {
+            font-size: 0.8rem;
+        }
+
+        .modal-content {
+            border-radius: 1rem;
+        }
+
+        .table td, .table th {
+            vertical-align: middle;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        function loadVendorDetails(name) {
+            const content = `
+                        <p><strong>Vendor Name:</strong> ${name}</p>
+                        <p><strong>Description:</strong> This is a sample vendor detail popup with information about the vendor services, pricing, and contact info.</p>
+                    `;
+            document.getElementById("vendorDetails").innerHTML = content;
+        }
+
+        function selectVendor(button) {
+            const row = button.closest("tr");
+            const statusCell = row.querySelector(".status-label");
+            statusCell.textContent = "Selected";
+            statusCell.className = "badge bg-success status-label";
+        }
+
+        function deleteRow(button) {
+            const row = button.closest("tr");
+            row.remove();
+        }
+    </script>
+}

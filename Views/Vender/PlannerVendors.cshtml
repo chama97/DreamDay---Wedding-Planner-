@@ -1,0 +1,133 @@
+@{
+    ViewData["Title"] = "Vendors";
+    var categories = new[] { "Venues", "Photographers", "Florists", "Catering" };
+}
+<div class="container mt-4">
+    <h2 class="mb-4">Vendors</h2>
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label for="categorySelect" class="form-label">Select Category</label>
+            <select class="form-select" id="categorySelect" onchange="changeCategory()">
+                <option value="Venues">Venues</option>
+                <option value="Photographers">Photographers</option>
+                <option value="Florists">Florists</option>
+                <option value="Catering">Catering</option>
+            </select>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Vendor List</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover" id="vendorTable">
+                    <thead>
+                        <tr>
+                            <th>Vendor Name</th>
+                            <th>Contact</th>
+                            <th>Rating</th>
+                            <th>Price Range</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dummy data will be loaded by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor Details Modal -->
+    <div class="modal fade" id="vendorDetailsModal" tabindex="-1" aria-labelledby="vendorDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="vendorDetailsModalLabel">Vendor Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="vendorDetailsBody">
+                    <!-- Details will be loaded by JS -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+<script>
+const vendorData = {
+    Venues: [
+        { name: 'Grand Hotel', contact: '012-3456789', rating: 4.5, price: '$5000 - $10000', status: 'Available', details: 'A luxury hotel venue for weddings.' },
+        { name: 'Palm Garden Hall', contact: '011-2233445', rating: 4.0, price: '$3000 - $7000', status: 'Available', details: 'Spacious hall for grand events.' }
+    ],
+    Photographers: [
+        { name: 'Capture Moments', contact: '077-1234567', rating: 4.2, price: '$2000 - $4000', status: 'Available', details: 'Professional wedding photography.' },
+        { name: 'Shutter Studio', contact: '071-9876543', rating: 4.8, price: '$2500 - $4500', status: 'Available', details: 'Award-winning photographers.' }
+    ],
+    Florists: [
+        { name: 'Floral Dreams', contact: '075-5555555', rating: 4.7, price: '$1000 - $3000', status: 'Available', details: 'Beautiful floral arrangements.' },
+        { name: 'Petal Paradise', contact: '076-8888888', rating: 4.3, price: '$1200 - $3500', status: 'Available', details: 'Creative flower designs.' }
+    ],
+    Catering: [
+        { name: 'Sweet Treats', contact: '078-3333333', rating: 4.6, price: '$4000 - $9000', status: 'Available', details: 'Delicious catering services.' },
+        { name: 'Gourmet Bites', contact: '079-4444444', rating: 4.4, price: '$3500 - $8000', status: 'Available', details: 'Fine dining for weddings.' }
+    ]
+};
+let currentCategory = 'Venues';
+function renderVendors() {
+    const tbody = document.querySelector('#vendorTable tbody');
+    tbody.innerHTML = '';
+    vendorData[currentCategory].forEach((v, idx) => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${v.name}</td>
+                <td>${v.contact}</td>
+                <td>${'★'.repeat(Math.floor(v.rating))}${v.rating % 1 ? '½' : ''}</td>
+                <td>${v.price}</td>
+                <td><span class="badge bg-success">${v.status}</span></td>
+                <td>
+                    <button class="btn btn-sm btn-info" onclick="showVendorDetails(${idx})" data-bs-toggle="modal" data-bs-target="#vendorDetailsModal">View</button>
+                    <button class="btn btn-sm btn-success" onclick="selectVendor(this)">Select</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteVendor(this)">Delete</button>
+                </td>
+            </tr>
+        `;
+    });
+}
+function changeCategory() {
+    currentCategory = document.getElementById('categorySelect').value;
+    renderVendors();
+}
+function showVendorDetails(idx) {
+    const v = vendorData[currentCategory][idx];
+    document.getElementById('vendorDetailsBody').innerHTML = `
+        <strong>Name:</strong> ${v.name}<br>
+        <strong>Contact:</strong> ${v.contact}<br>
+        <strong>Rating:</strong> ${v.rating}<br>
+        <strong>Price Range:</strong> ${v.price}<br>
+        <strong>Status:</strong> ${v.status}<br>
+        <strong>Details:</strong> ${v.details}<br>
+    `;
+}
+function selectVendor(btn) {
+    const row = btn.closest('tr');
+    row.querySelector('td:nth-child(5) .badge').classList.remove('bg-success');
+    row.querySelector('td:nth-child(5) .badge').classList.add('bg-primary');
+    row.querySelector('td:nth-child(5) .badge').innerText = 'Selected';
+}
+function deleteVendor(btn) {
+    btn.closest('tr').remove();
+}
+document.addEventListener('DOMContentLoaded', renderVendors);
+</script>
+}
+@section Styles {
+    <style>
+        .card { transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+    </style>
+} 
