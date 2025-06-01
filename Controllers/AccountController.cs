@@ -275,6 +275,23 @@ namespace Wedding_Planner.Controllers
         }
 
 
+        public async Task<IActionResult> Users()
+        {
+            var users = await _context.Users
+                .Include(u => u.Role)
+                .Select(u => new UserViewModel
+                {
+                    Id = u.Id,
+                    Username = u.Username,
+                    RoleName = u.Role != null ? u.Role.Name : "N/A",
+                    Status = u.Status
+                })
+                .ToListAsync();
+
+            return View(users);
+        }
+
+
 
     }
 }

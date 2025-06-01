@@ -17,6 +17,8 @@ builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IGuestService, GuestService>();
 builder.Services.AddScoped<ITimelineService, TimelineService>();
+builder.Services.AddScoped<IVendorService, VendorsService>();
+
 
 // Enable session management
 builder.Services.AddDistributedMemoryCache();

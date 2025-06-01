@@ -42,6 +42,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZXNldFBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Esoft/SE/AD/Wedding-Planner/Views/Account/Users.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxVc2Vycy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Esoft/SE/AD/Wedding-Planner/Views/Account/VerifyEmail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxWZXJpZnlFbWFpbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -88,6 +92,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Esoft/SE/AD/Wedding-Planner/Views/Timeline/Timeline.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZWxpbmVcVGltZWxpbmUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Esoft/SE/AD/Wedding-Planner/Views/Vender/CreateVender.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVuZGVyXENyZWF0ZVZlbmRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Esoft/SE/AD/Wedding-Planner/Views/Vender/ManageVenders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVuZGVyXE1hbmFnZVZlbmRlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Esoft/SE/AD/Wedding-Planner/Views/_ViewImports.cshtml]

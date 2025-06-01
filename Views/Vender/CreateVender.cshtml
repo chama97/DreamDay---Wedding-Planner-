@@ -1,0 +1,58 @@
+﻿@model Wedding_Planner.Models.DTO.VendorViewModel
+
+@{
+    ViewData["Title"] = "Create Vendor";
+}
+
+<h2 class="mt-4">Add New Vendor</h2>
+
+<form asp-action="CreateVender" method="post">
+    <div class="mb-3">
+        <label asp-for="VendorName" class="form-label"></label>
+        <input asp-for="VendorName" class="form-control" />
+        <span asp-validation-for="VendorName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label">Category</label>
+        <select asp-for="CategoryId" class="form-select" asp-items="Model.Categories"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ContactPerson" class="form-label"></label>
+        <input asp-for="ContactPerson" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Phone" class="form-label"></label>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Website" class="form-label"></label>
+        <input asp-for="Website" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Address" class="form-label"></label>
+        <input asp-for="Address" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="HourlyRate" class="form-label"></label>
+        <input asp-for="HourlyRate" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Create Vendor</button>
+</form>
